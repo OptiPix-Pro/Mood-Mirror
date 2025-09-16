@@ -211,7 +211,6 @@
             align-items: center;
             justify-content: center;
             transform-origin: center;
-            touch-action: none; /* Important for pinch-to-zoom */
         }
         .memoji-overlay:active {
             cursor: grabbing;
@@ -399,6 +398,21 @@
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
+        /* New styles for sharing feedback */
+        .share-feedback {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        .share-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .share-error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
@@ -504,6 +518,8 @@
                 <button class="share-btn tiktok" onclick="shareMeme('tiktok')">🎵 TikTok</button>
             </div>
             
+            <div id="shareFeedback" class="share-feedback" style="display: none;"></div>
+            
             <button class="btn" onclick="downloadMeme()">Download Meme</button>
             <button class="btn btn-secondary" onclick="startOver()">Create Another</button>
         </div>
@@ -522,6 +538,8 @@
         // Variables for pinch-to-zoom
         let initialPinchDistance = 0;
         let initialFontSize = 0;
+        // Store the final meme data URL for sharing
+        let finalMemeDataURL = null;
 
         // Elements
         const homeView = document.getElementById('homeView');
@@ -541,6 +559,7 @@
         const selectedEmojisList = document.getElementById('selectedEmojisList');
         const emojiCounter = document.getElementById('emojiCounter');
         const addEmojiButton = document.getElementById('addEmojiButton');
+        const shareFeedback = document.getElementById('shareFeedback');
 
         // All emojis organized by category
         const emojiCategories = {
@@ -1361,7 +1380,8 @@
                 });
                 
                 // Set final meme
-                finalMeme.src = canvas.toDataURL('image/png');
+                finalMemeDataURL = canvas.toDataURL('image/png');
+                finalMeme.src = finalMemeDataURL;
                 
                 editorView.style.display = 'none';
                 previewView.style.display = 'block';
@@ -1374,30 +1394,127 @@
         function downloadMeme() {
             const link = document.createElement('a');
             link.download = 'mood-mirror-meme.png';
-            link.href = finalMeme.src;
+            link.href = finalMemeDataURL || finalMeme.src;
             link.click();
         }
 
-        // Share meme
+        // Share meme - UPDATED to share the actual image
         function shareMeme(platform) {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My Mood Mirror Meme',
-                    text: 'Check out this meme I made with Mood Mirror!',
-                    url: window.location.href,
-                })
-                .catch(error => {
-                    console.error('Error sharing:', error);
-                    alert(`Shared to ${platform}! In a real app, this would share directly.`);
-                });
+            // Hide any previous feedback
+            shareFeedback.style.display = 'none';
+            
+            // Check if Web Share API is available and can share files
+            if (navigator.share && navigator.canShare) {
+                try {
+                    // Convert data URL to blob
+                    fetch(finalMemeDataURL)
+                        .then(res => res.blob())
+                        .then(blob => {
+                            // Create file from blob
+                            const file = new File([blob], 'mood-mirror-meme.png', { type: 'image/png' });
+                            
+                            // Check if the browser can share files
+                            const shareData = {
+                                title: 'My Mood Mirror Meme',
+                                text: 'Check out this meme I made with Mood Mirror!',
+                                files: [file],
+                            };
+                            
+                            if (navigator.canShare(shareData)) {
+                                // Share the image file
+                                navigator.share(shareData)
+                                    .then(() => {
+                                        showShareFeedback('Meme shared successfully!', true);
+                                    })
+                                    .catch(error => {
+                                        console.error('Error sharing:', error);
+                                        fallbackShare(platform);
+                                    });
+                            } else {
+                                // Fall back to URL sharing
+                                fallbackShare(platform);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error converting image:', error);
+                            fallbackShare(platform);
+                        });
+                } catch (error) {
+                    console.error('Error preparing share:', error);
+                    fallbackShare(platform);
+                }
             } else {
-                alert(`Shared to ${platform}! In a real app, this would share directly.`);
+                // Fall back to URL sharing
+                fallbackShare(platform);
             }
+        }
+
+        // Fallback share method for browsers that don't support file sharing
+        function fallbackShare(platform) {
+            const shareUrl = window.location.href;
+            const shareText = 'Check out this meme I made with Mood Mirror!';
+            
+            let shareWindowUrl;
+            
+            switch(platform) {
+                case 'facebook':
+                    shareWindowUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+                    break;
+                case 'twitter':
+                    shareWindowUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+                    break;
+                case 'whatsapp':
+                    shareWindowUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+                    break;
+                case 'tiktok':
+                    // TikTok doesn't have a direct share API, so we'll open in a new tab
+                    window.open(shareUrl, '_blank');
+                    showShareFeedback('Please download the meme and share it directly on TikTok', false);
+                    return;
+                default:
+                    console.error('Unknown platform:', platform);
+                    return;
+            }
+            
+            window.open(shareWindowUrl, '_blank');
+            showShareFeedback(`Shared to ${platform}! In a real app, this would share directly.`, true);
+        }
+
+        // Show share feedback to user
+        function showShareFeedback(message, isSuccess) {
+            shareFeedback.textContent = message;
+            shareFeedback.className = `share-feedback ${isSuccess ? 'share-success' : 'share-error'}`;
+            shareFeedback.style.display = 'block';
+            
+            // Hide feedback after 5 seconds
+            setTimeout(() => {
+                shareFeedback.style.display = 'none';
+            }, 5000);
         }
 
         // Share app
         function shareApp(platform) {
-            alert(`Shared Mood Mirror on ${platform}! In a real app, this would share directly.`);
+            const shareUrl = window.location.href;
+            const shareText = 'Check out Mood Mirror - a free tool to create hilarious memes with your photos and emojis!';
+            
+            let shareWindowUrl;
+            
+            switch(platform) {
+                case 'facebook':
+                    shareWindowUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+                    break;
+                case 'twitter':
+                    shareWindowUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+                    break;
+                case 'whatsapp':
+                    shareWindowUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+                    break;
+                default:
+                    console.error('Unknown platform:', platform);
+                    return;
+            }
+            
+            window.open(shareWindowUrl, '_blank');
         }
 
         // Start over
@@ -1407,6 +1524,7 @@
             selectedEmojis = [];
             userPhotoData = null;
             selectedCaption = '';
+            finalMemeDataURL = null;
             captionSelect.value = '';
             customCaption.value = '';
             customCaption.style.display = 'none';
