@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,18 +12,20 @@
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="Mood Mirror - Create Viral Memes with Your Mood">
     <meta property="og:description" content="Turn your selfie into a hilarious viral meme in seconds. Free, no sign-up, and loads of fun!">
-    <meta property="og:image" content="https://yourdomain.com/preview-image.jpg">
-    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:image" content="https://mood-mirror-xdwq.onrender.com/preview-image.jpg">
+    <meta property="og:url" content="https://mood-mirror-xdwq.onrender.com/">
     <meta property="og:type" content="website">
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Mood Mirror - Create Viral Memes with Your Mood">
     <meta name="twitter:description" content="Turn your selfie into a hilarious viral meme in seconds. Free, no sign-up, and loads of fun!">
-    <meta name="twitter:image" content="https://yourdomain.com/preview-image.jpg">
+    <meta name="twitter:image" content="https://mood-mirror-xdwq.onrender.com/preview-image.jpg">
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://yourdomain.com/" />
+    <link rel="canonical" href="https://mood-mirror-xdwq.onrender.com/" />
     <!-- Preconnect to Google AdSense for faster ad loading -->
     <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+    <!-- AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2629754813976130" crossorigin="anonymous"></script>
     <!-- Structured Data (JSON-LD) for SEO -->
     <script type="application/ld+json">
     {
@@ -97,13 +100,19 @@
             font-size: 18px;
             cursor: pointer;
             margin: 10px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
             width: 100%;
             max-width: 300px;
         }
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         .btn-secondary {
             background: transparent;
@@ -203,6 +212,7 @@
         }
         .memoji-overlay {
             position: absolute;
+            font-family: Arial, sans-serif; /* Unify font with canvas render */
             font-size: 80px;
             cursor: grab;
             user-select: none;
@@ -272,7 +282,7 @@
             font-size: 20px;
             display: none;
         }
-        .ad-container {
+        #homeAdContainer, #editorAdContainer {
             width: 100%;
             margin: 20px 0;
             padding: 10px;
@@ -413,7 +423,38 @@
             background-color: #f8d7da;
             color: #721c24;
         }
+        /* Styles for Cookie Consent Banner */
+        .cookie-consent-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(52, 58, 64, 0.9);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .cookie-consent-banner p {
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .cookie-consent-banner a {
+            color: #2575fc;
+            text-decoration: underline;
+        }
+        .cookie-consent-banner .btn {
+            margin: 0;
+            width: auto;
+            flex-shrink: 0;
+        }
     </style>
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <div class="container">
@@ -438,24 +479,14 @@
             <div class="featured-memes" id="featuredMemes">
                 <!-- Will be populated by JavaScript -->
             </div>
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2629754813976130"
-     crossorigin="anonymous"></script>
-<!-- Mood Mirror Homepage Banner -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2629754813976130"
-     data-ad-slot="3919610151"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <!-- Ad container placeholder -->
+            <div id="homeAdContainer"></div>
         </div>
 
         <!-- Camera View -->
         <div id="cameraView">
             <video id="cameraVideo" autoplay playsinline></video>
-            <button class="btn" onclick="capturePhoto()">Capture Photo</button>
+            <button id="captureBtn" class="btn" onclick="capturePhoto()" disabled>Capture Photo</button>
             <button class="btn btn-secondary" onclick="showHome()">Cancel</button>
         </div>
 
@@ -485,9 +516,7 @@
             <button class="btn" onclick="generateMeme()">Preview Your Masterpiece!</button>
             <button class="btn btn-secondary" onclick="showHome()">Start Over</button>
             
-            <div class="ad-container">
-                <div class="ad-placeholder">Your Ad Here 🚀</div>
-            </div>
+            <div id="editorAdContainer"></div>
         </div>
 
         <!-- Emoji Selection View -->
@@ -509,7 +538,10 @@
 
         <!-- Preview View -->
         <div id="previewView">
-            <img id="finalMeme" alt="Your mood meme" class="meme-image">
+            <!-- Added container for consistent sizing -->
+            <div class="meme-container">
+                <img id="finalMeme" alt="Your mood meme" class="meme-image">
+            </div>
             
             <div class="viral-share">
                 <button class="share-btn" onclick="shareMeme('facebook')">📱 Share</button>
@@ -525,13 +557,21 @@
         </div>
     </div>
 
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsentBanner" class="cookie-consent-banner" style="display: none;">
+        <p>We use cookies to personalize ads and improve your experience. See our <a href="/privacy-policy.html">Privacy Policy</a> for more details.</p>
+        <div>
+            <button id="acceptCookies" class="btn btn-small">Accept</button>
+            <button id="declineCookies" class="btn btn-small btn-secondary">Decline</button>
+        </div>
+    </div>
+
     <script>
         // State variables
         let selectedEmojis = [];
         let userPhotoData = null;
         let currentEmojiCategory = 'smileys';
         let selectedCaption = '';
-        let isPremium = true; // Premium features enabled for all users
         let editorContainerWidth = 0;
         let isResizing = false;
         let activeEmojiIndex = -1;
@@ -540,6 +580,8 @@
         let initialFontSize = 0;
         // Store the final meme data URL for sharing
         let finalMemeDataURL = null;
+        // Ad observer
+        let adObserver = null;
 
         // Elements
         const homeView = document.getElementById('homeView');
@@ -560,12 +602,13 @@
         const emojiCounter = document.getElementById('emojiCounter');
         const addEmojiButton = document.getElementById('addEmojiButton');
         const shareFeedback = document.getElementById('shareFeedback');
+        const captureBtn = document.getElementById('captureBtn');
 
         // All emojis organized by category
         const emojiCategories = {
             smileys: ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥺", "😢", "😭", "😤", "😠", "😡", "😳", "🥵", "🥶", "😱", "😨", "😰", "😥", "😓", "🫣", "🤗", "🫡", "🤔", "🫢", "🤭", "🤫", "🤥", "😶", "🫠", "😐", "🫤", "😑", "😬", "🙄", "😯", "😦", "😧", "😮", "😲", "🥱", "😴", "🤤", "😪", "😵", "🥴", "🤐", "🥲", "🤢", "🤧", "😷", "🤒", "🤕"],
             animals: ["🐵", "🐒", "🦍", "🦧", "🐶", "🐕", "🦮", "🐕‍🦺", "🐩", "🐺", "🦊", "🦝", "🐱", "🐈", "🐈‍⬛", "🦁", "🐯", "🐅", "🐆", "🐴", "🐎", "🦄", "🦓", "🦌", "🦬", "🐮", "🐂", "🐃", "🐄", "🐷", "🐖", "🐗", "🐽", "🐏", "🐑", "🐐", "🐪", "🐫", "🦙", "🦒", "🐘", "🦣", "🦏", "🦛", "🐭", "🐁", "🐀", "🐹", "🐰", "🐇", "🐿️", "🦫", "🦔", "🦇", "🐻", "🐻‍❄️", "🐨", "🐼", "🦥", "🦦", "🦨", "🦘", "🦡", "🐾", "🦃", "🐔", "🐓", "🐣", "🐤", "🐥", "🐦", "🐧", "🕊️", "🦅", "🦆", "🦢", "🦉", "🦤", "🪶", "🦩", "🦜", "🐸", "🐊", "🐢", "🦎", "🐍", "🐲", "🐉", "🦕", "🦖", "🐳", "🐋", "🐬", "🦭", "🐟", "🐠", "🐡", "🦈", "🐙", "🐚", "🐌", "🦋", "🐛", "🐜", "🐝", "🪲", "🐞", "🦗", "🪳", "🕷️", "🕸️", "🦂", "🦟", "🪰", "🪱"],
-            nature: ["💐", "🌸", "💮", "🏵️", "🌹", "🥀", "🌺", "🌻", "🌼", "🌷", "🌱", "🪴", "🌲", "🌳", "🌴", "🌵", "🌾", "🌿", "☘️", "🍀", "🍁", "🍂", "🍃", "🪹", "🪺", "🍄", "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍑", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄", "🥜", "🌰", "🫘", "🍞", "🥐", "🥖", "🫓", "🥨", "🥯", "🥞", "🧇", "🧀", "🍖", "🍗", "🥩", "🥓", "🍔", "🍟", "🍕", "🌭", "🥪", "🌮", "🌯", "🫔", "🥙", "🧆", "🥚", "🍳", "🥘", "🍲", "🫕", "🥣", "🥗", "🍿", "🧈", "🧂", "🥫", "🍝", "🍱", "🍘", "🍙", "🍚", "🍛", "🍜", "🍠", "🍢", "🍣", "🍤", "🍥", "🥮", "🍡", "🥟", "🥠", "🥡", "🍦", "🍧", "🍨", "🍩", "🍪", "🎂", "🍰", "🧁", "🥧", "🍫", "🍬", "🍭", "🍮", "🍯", "🍼", "🥛", "☕", "🫖", "🍵", "🍶", "🍾", "🍷", "🍸", "🍹", "🍺", "🍻", "🥂", "🥃", "🫗", "🥤", "🧋", "🧃", "🧉", "🧊"],
+            nature: ["💐", "🌸", "💮", "🏵️", "🌹", "🥀", "🌺", "🌻", "🌼", "🌷", "🌱", "🪴", "🌲", "🌳", "🌴", "🌵", "🌾", "🌿", "☘️", "🍀", "🍁", "🍂", "🍃", "🪹", "🪺", "🍄", "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏", "🍐", "🍑", "🍒", "🍓", "🫐", "🥝", "🍅", "🫒", "🥥", "🥑", "🍆", "🥔", "🥕", "🌽", "🌶️", "🫑", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄", "🥜", "🌰", "🫘", "🍞", "🥐", "🥖", "𫓓", "🥨", "🥯", "🥞", "🧇", "🧀", "🍖", "🍗", "🥩", "🥓", "🍔", "🍟", "🍕", "🌭", "🥪", "🌮", "🌯", "𫔔", "🥙", "🧆", "🥚", "🍳", "🥘", "🍲", "𫕕", "🥣", "🥗", "🍿", "🧈", "🧂", "🥫", "🍝", "🍱", "🍘", "🍙", "🍚", "🍛", "🍜", "🍠", "🍢", "🍣", "🍤", "🍥", "🥮", "🍡", "🥟", "🥠", "🥡", "🍦", "🍧", "🍨", "🍩", "🍪", "🎂", "🍰", "🧁", "🥧", "🍫", "🍬", "🍭", "🍮", "🍯", "🍼", "🥛", "☕", "𫖖", "🍵", "🍶", "🍾", "🍷", "🍸", "🍹", "🍺", "🍻", "🥂", "🥃", "𫗗", "🥤", "🧋", "🧃", "🧉", "🧊"],
             symbols: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❤️‍🔥", "❤️‍🩹", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "💟", "☮️", "✝️", "☪️", "🕉️", "☸️", "✡️", "🔯", "🕎", "☯️", "☦️", "🛐", "⛎", "♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓", "🆔", "⚛️", "🉑", "☢️", "☣️", "📴", "📳", "🈶", "🈚", "🈸", "🈺", "🈷️", "✴️", "🆚", "💮", "🉐", "㊙️", "㊗️", "🈴", "🈵", "🈹", "🈲", "🅰️", "🅱️", "🆎", "🆑", "🅾️", "🆘", "❌", "⭕", "🛑", "⛔", "📛", "🚫", "💯", "💢", "♨️", "🚷", "🚯", "🚳", "🚱", "🔞", "📵", "🚭", "❗", "❕", "❓", "❔", "‼️", "⁉️", "🔅", "🔆", "〽️", "⚠️", "🚸", "🔱", "⚜️", "🔰", "♻️", "✅", "🈯", "💹", "❇️", "✳️", "❎", "🌐", "💠", "Ⓜ️", "🌀", "💤", "🏧", "🚾", "♿", "🅿️", "🛗", "🈳", "🈂️", "🛂", "🛃", "🛄", "🛅", "🚹", "🚺", "🚼", "⚧️", "🚻", "🚮", "🎦", "📶", "🈁", "🔣", "🔤", "🔡", "🔠", "🆖", "🆗", "🆙", "🆒", "🆕", "🆓", "0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟", "🔢", "#️⃣", "*️⃣", "⏏️", "▶️", "⏸️", "⏯️", "⏹️", "⏺️", "⏭️", "⏮️", "⏩", "⏪", "⏫", "⏬", "◀️", "🔼", "🔽", "➡️", "⬅️", "⬆️", "⬇️", "↗️", "↘️", "↙️", "↖️", "↕️", "↔️", "↪️", "↩️", "⤴️", "⤵️", "🔀", "🔁", "🔂", "🔄", "🔃", "🎵", "🎶", "➕", "➖", "➗", "♾️", "💲", "💱", "™️", "©️", "®️", "〰️", "➰", "➿", "🔚", "🔙", "🔛", "🔝", "🔜"]
         };
 
@@ -672,6 +715,52 @@
             "My bank account: 🕳️👀🌀",
             "My mental health: 🎢🌪️🎭"
         ];
+        
+        // --- Consent Management ---
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i=0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        function checkConsent() {
+            const consent = getCookie("user_consent");
+            const banner = document.getElementById('cookieConsentBanner');
+            
+            if (consent === "true") {
+                setupAdObserver(); // User has consented, prepare home ad.
+            } else if (consent === "false") {
+                // User has declined, do nothing.
+            } else {
+                banner.style.display = 'flex'; // No consent given yet, show banner.
+            }
+
+            document.getElementById('acceptCookies').addEventListener('click', () => {
+                setCookie('user_consent', 'true', 365);
+                banner.style.display = 'none';
+                setupAdObserver();
+            });
+
+            document.getElementById('declineCookies').addEventListener('click', () => {
+                setCookie('user_consent', 'false', 365);
+                banner.style.display = 'none';
+            });
+        }
 
         // Initialize the app
         function initApp() {
@@ -683,6 +772,73 @@
             populateCaptionDropdown();
             populateFeaturedMemes();
             updateAddEmojiButton();
+            checkConsent(); // Check for consent before loading ads
+        }
+        
+        // --- AdSense Loading Functions ---
+        function setupAdObserver() {
+            const adContainer = document.getElementById('homeAdContainer');
+            if (!adContainer) return;
+
+            adObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        loadHomeAd();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.01 });
+            adObserver.observe(adContainer);
+        }
+        
+        function robustAdLoad(container, slotId) {
+            if (!container || container.querySelector('.adsbygoogle')) {
+                return; // Abort if no container or ad already loaded
+            }
+
+            container.innerHTML = ''; // Clear any placeholders
+
+            let attempts = 0;
+            const maxAttempts = 40; // Try for 2 seconds total (40 * 50ms)
+
+            function tryLoad() {
+                if (container.offsetWidth > 0) {
+                    const adSlot = document.createElement('ins');
+                    adSlot.className = 'adsbygoogle';
+                    adSlot.style.display = 'block';
+                    adSlot.dataset.adClient = 'ca-pub-2629754813976130';
+                    adSlot.dataset.adSlot = slotId;
+                    adSlot.dataset.adFormat = 'auto';
+                    adSlot.dataset.fullWidthResponsive = 'true';
+                    
+                    container.appendChild(adSlot);
+                    
+                    try {
+                        (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    } catch (e) {
+                        console.error("AdSense push error:", e);
+                    }
+                } else if (attempts < maxAttempts) {
+                    attempts++;
+                    setTimeout(tryLoad, 50);
+                } else {
+                    console.warn(`Ad container (${container.id}) did not get a valid width.`);
+                }
+            }
+            tryLoad();
+        }
+
+        function loadHomeAd() {
+            if (getCookie("user_consent") !== "true") return;
+            const adContainer = document.getElementById('homeAdContainer');
+            robustAdLoad(adContainer, '3919610151');
+        }
+
+        function loadEditorAd() {
+            if (getCookie("user_consent") !== "true") return;
+            const adContainer = document.getElementById('editorAdContainer');
+            // It's recommended to create a separate ad unit in AdSense for this placement for better performance tracking.
+            robustAdLoad(adContainer, '3919610151');
         }
 
         // Populate emoji tabs
@@ -697,7 +853,6 @@
                 emojiTabs.appendChild(tab);
             }
             
-            // Activate the first tab
             if (emojiTabs.firstChild) {
                 emojiTabs.firstChild.classList.add('active');
             }
@@ -705,7 +860,6 @@
 
         // Show emojis for a specific category
         function showEmojiCategory(category) {
-            // Update active tab
             const tabs = emojiTabs.getElementsByClassName('emoji-tab');
             for (const tab of tabs) {
                 tab.classList.remove('active');
@@ -714,10 +868,8 @@
                 }
             }
             
-            // Clear the grid
             emojiGrid.innerHTML = '';
             
-            // Add emojis to grid
             emojiCategories[category].forEach(emoji => {
                 const emojiElement = document.createElement('div');
                 emojiElement.className = 'emoji';
@@ -736,12 +888,15 @@
                 return;
             }
             
-            // Add emoji with default position
+            const container = document.querySelector('.meme-container');
+            const containerWidth = container && container.offsetWidth > 0 ? container.offsetWidth : 450;
+            const initialSize = Math.min(100, Math.max(50, containerWidth / 6));
+
             selectedEmojis.push({
                 emoji: emoji,
                 x: 30 + (selectedEmojis.length * 20),
                 y: 30 + (selectedEmojis.length * 10),
-                fontSize: 80 // Default font size for emojis
+                fontSize: initialSize
             });
             
             updateEmojiCounter();
@@ -796,7 +951,6 @@
         function populateCaptionDropdown() {
             captionSelect.innerHTML = '';
             
-            // Add default option
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
             defaultOption.textContent = 'Select a caption...';
@@ -804,13 +958,11 @@
             defaultOption.selected = true;
             captionSelect.appendChild(defaultOption);
             
-            // Add custom caption option
             const customOption = document.createElement('option');
             customOption.value = 'custom';
             customOption.textContent = 'Write my own caption...';
             captionSelect.appendChild(customOption);
             
-            // Add options from all categories
             for (const category in memeCaptions) {
                 const optGroup = document.createElement('optgroup');
                 optGroup.label = category.charAt(0).toUpperCase() + category.slice(1) + ' Captions';
@@ -825,7 +977,6 @@
                 captionSelect.appendChild(optGroup);
             }
             
-            // Add premium captions (now available to all)
             const premiumOptGroup = document.createElement('optgroup');
             premiumOptGroup.label = '⭐ Premium Captions';
             
@@ -855,7 +1006,6 @@
 
         // Populate featured memes on home screen
         function populateFeaturedMemes() {
-            // Create some sample featured memes
             const samples = [
                 { caption: "My Monday mood", emoji: "😴" },
                 { caption: "When the code works", emoji: "🎉" },
@@ -867,27 +1017,22 @@
                 const memeElement = document.createElement('div');
                 memeElement.className = 'meme-sample';
                 
-                // Create a canvas to generate the sample image
                 const canvas = document.createElement('canvas');
                 canvas.width = 300;
                 canvas.height = 300;
                 const ctx = canvas.getContext('2d');
                 
-                // Draw background
                 ctx.fillStyle = '#f8f9fa';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Draw text
                 ctx.font = '20px Arial';
                 ctx.fillStyle = '#333';
                 ctx.textAlign = 'center';
                 ctx.fillText(sample.caption, canvas.width / 2, 50);
                 
-                // Draw emoji
                 ctx.font = '80px Arial';
                 ctx.fillText(sample.emoji, canvas.width / 2, canvas.height / 2);
                 
-                // Create image from canvas
                 const dataUrl = canvas.toDataURL('image/png');
                 
                 memeElement.innerHTML = `
@@ -912,9 +1057,17 @@
             previewView.style.display = 'none';
             emojiSelectionView.style.display = 'none';
             
-            // Stop camera if it's running
             if (cameraVideo.srcObject) {
                 cameraVideo.srcObject.getTracks().forEach(track => track.stop());
+                cameraVideo.srcObject = null;
+            }
+            
+            if (getCookie("user_consent") === "true") {
+                const adContainer = document.getElementById('homeAdContainer');
+                if (adObserver && adContainer) {
+                    adContainer.innerHTML = '';
+                    adObserver.observe(adContainer);
+                }
             }
         }
 
@@ -922,11 +1075,14 @@
         function showCamera() {
             homeView.style.display = 'none';
             cameraView.style.display = 'block';
+            captureBtn.disabled = true;
             
-            // Access camera
             navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
             .then(stream => {
                 cameraVideo.srcObject = stream;
+                cameraVideo.oncanplay = () => {
+                   captureBtn.disabled = false;
+                };
             })
             .catch(error => {
                 console.error('Error accessing camera:', error);
@@ -945,7 +1101,6 @@
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = event => {
-                        // Create image to check dimensions and resize if needed
                         const img = new Image();
                         img.onload = function() {
                             const maxWidth = 800;
@@ -965,28 +1120,22 @@
                                 }
                             }
                             
-                            // Create canvas to resize image
                             const canvas = document.createElement('canvas');
                             canvas.width = width;
                             canvas.height = height;
                             const ctx = canvas.getContext('2d');
                             ctx.drawImage(img, 0, 0, width, height);
                             
-                            // Use resized image
                             userPhotoData = canvas.toDataURL('image/jpeg', 0.8);
                             photoPreview.src = userPhotoData;
                             
                             homeView.style.display = 'none';
                             editorView.style.display = 'block';
+                            loadEditorAd();
                             
-                            // Store container width for size calculations
                             editorContainerWidth = memeContainer.offsetWidth;
-                            
-                            // Render emoji overlays
                             renderEmojiOverlays();
-                            
-                            // Adjust font sizes after image loads
-                            setTimeout(adjustFontSizes, 100);
+                            setTimeout(adjustEditorControlSizes, 100);
                         };
                         img.src = event.target.result;
                     };
@@ -996,20 +1145,11 @@
             input.click();
         }
 
-        // Adjust font sizes based on container
-        function adjustFontSizes() {
+        // Adjust caption input sizes based on container
+        function adjustEditorControlSizes() {
             const container = document.querySelector('.meme-container');
             if (!container) return;
-            
             const containerWidth = container.offsetWidth;
-            
-            // Adjust emoji size based on container
-            const emojiSize = Math.min(100, Math.max(40, containerWidth / 6));
-            document.querySelectorAll('.memoji-overlay').forEach(overlay => {
-                overlay.style.fontSize = `${emojiSize}px`;
-            });
-            
-            // Adjust caption size
             const captionSize = Math.min(20, Math.max(14, containerWidth / 25));
             document.querySelectorAll('.caption-select, .custom-caption').forEach(el => {
                 el.style.fontSize = `${captionSize}px`;
@@ -1018,10 +1158,7 @@
 
         // Render emoji overlays
         function renderEmojiOverlays() {
-            // Clear existing overlays
             document.querySelectorAll('.memoji-overlay').forEach(el => el.remove());
-            
-            // Create overlays for each emoji
             selectedEmojis.forEach((emojiObj, index) => {
                 const overlay = document.createElement('div');
                 overlay.className = 'memoji-overlay';
@@ -1031,19 +1168,15 @@
                 overlay.style.transform = 'translate(-50%, -50%)';
                 overlay.style.fontSize = `${emojiObj.fontSize}px`;
                 
-                // Create resize handle
                 const resizeHandle = document.createElement('div');
                 resizeHandle.className = 'resize-handle';
                 
-                // Make draggable and resizable
                 makeDraggable(overlay, index);
                 makeResizable(overlay, resizeHandle, index);
                 
                 overlay.appendChild(resizeHandle);
                 memeContainer.appendChild(overlay);
             });
-            
-            adjustFontSizes();
         }
 
         // Make emoji draggable
@@ -1052,11 +1185,9 @@
             let offset = { x: 0, y: 0 };
 
             element.addEventListener('mousedown', e => {
-                // Only drag if not resizing and not clicking on resize handle
                 if (!isResizing && e.target !== element.querySelector('.resize-handle')) {
                     isDragging = true;
                     const rect = element.getBoundingClientRect();
-                    // Calculate offset from center of element
                     offset.x = e.clientX - (rect.left + rect.width / 2);
                     offset.y = e.clientY - (rect.top + rect.height / 2);
                     element.style.cursor = 'grabbing';
@@ -1066,15 +1197,12 @@
             document.addEventListener('mousemove', e => {
                 if (isDragging && !isResizing) {
                     const containerRect = memeContainer.getBoundingClientRect();
-                    // Calculate center position
                     let centerX = e.clientX - containerRect.left - offset.x;
                     let centerY = e.clientY - containerRect.top - offset.y;
                     
-                    // Convert to percentages
                     const percentX = (centerX / containerRect.width) * 100;
                     const percentY = (centerY / containerRect.height) * 100;
                     
-                    // Keep within bounds
                     const emojiWidthPercent = (element.offsetWidth / containerRect.width) * 100;
                     const emojiHeightPercent = (element.offsetHeight / containerRect.height) * 100;
                     
@@ -1084,7 +1212,6 @@
                     element.style.left = `${boundedX}%`;
                     element.style.top = `${boundedY}%`;
                     
-                    // Update position in state
                     selectedEmojis[index].x = boundedX;
                     selectedEmojis[index].y = boundedY;
                 }
@@ -1095,12 +1222,9 @@
                 element.style.cursor = 'grab';
             });
 
-            // Touch events for mobile
             element.addEventListener('touchstart', e => {
                 if (!isResizing && e.target !== element.querySelector('.resize-handle')) {
-                    // Check if it's a pinch gesture (two fingers)
                     if (e.touches.length === 2) {
-                        // Handle pinch-to-zoom
                         const touch1 = e.touches[0];
                         const touch2 = e.touches[1];
                         initialPinchDistance = Math.hypot(
@@ -1110,7 +1234,6 @@
                         initialFontSize = parseInt(getComputedStyle(element).fontSize);
                         e.preventDefault();
                     } else {
-                        // Single touch for dragging
                         isDragging = true;
                         const rect = element.getBoundingClientRect();
                         offset.x = e.touches[0].clientX - (rect.left + rect.width / 2);
@@ -1122,7 +1245,6 @@
 
             document.addEventListener('touchmove', e => {
                 if (e.touches.length === 2 && !isResizing) {
-                    // Handle pinch-to-zoom
                     const touch1 = e.touches[0];
                     const touch2 = e.touches[1];
                     const currentPinchDistance = Math.hypot(
@@ -1130,13 +1252,9 @@
                         touch2.clientY - touch1.clientY
                     );
                     
-                    // Calculate scale factor
                     const scale = currentPinchDistance / initialPinchDistance;
-                    
-                    // Apply scaling to font size with limits
                     const newSize = Math.max(20, Math.min(200, initialFontSize * scale));
                     
-                    // Update size
                     element.style.fontSize = `${newSize}px`;
                     selectedEmojis[index].fontSize = newSize;
                     
@@ -1146,11 +1264,9 @@
                     let centerX = e.touches[0].clientX - containerRect.left - offset.x;
                     let centerY = e.touches[0].clientY - containerRect.top - offset.y;
                     
-                    // Convert to percentages
                     const percentX = (centerX / containerRect.width) * 100;
                     const percentY = (centerY / containerRect.height) * 100;
                     
-                    // Keep within bounds
                     const emojiWidthPercent = (element.offsetWidth / containerRect.width) * 100;
                     const emojiHeightPercent = (element.offsetHeight / containerRect.height) * 100;
                     
@@ -1160,7 +1276,6 @@
                     element.style.left = `${boundedX}%`;
                     element.style.top = `${boundedY}%`;
                     
-                    // Update position in state
                     selectedEmojis[index].x = boundedX;
                     selectedEmojis[index].y = boundedY;
                     
@@ -1190,12 +1305,8 @@
                 if (isResizing && activeEmojiIndex === index) {
                     const deltaX = e.clientX - startX;
                     const deltaY = e.clientY - startY;
-                    
-                    // Calculate new size based on mouse movement
                     const delta = Math.sqrt(deltaX * deltaX + deltaY * deltaY) * (deltaX + deltaY > 0 ? 1 : -1);
                     const newSize = Math.max(20, Math.min(200, startSize + delta));
-                    
-                    // Update size
                     element.style.fontSize = `${newSize}px`;
                     selectedEmojis[index].fontSize = newSize;
                 }
@@ -1206,7 +1317,6 @@
                 activeEmojiIndex = -1;
             });
 
-            // Touch events for mobile
             handle.addEventListener('touchstart', e => {
                 isResizing = true;
                 activeEmojiIndex = index;
@@ -1220,15 +1330,10 @@
                 if (isResizing && activeEmojiIndex === index) {
                     const deltaX = e.touches[0].clientX - startX;
                     const deltaY = e.touches[0].clientY - startY;
-                    
-                    // Calculate new size based on touch movement
                     const delta = Math.sqrt(deltaX * deltaX + deltaY * deltaY) * (deltaX + deltaY > 0 ? 1 : -1);
                     const newSize = Math.max(20, Math.min(200, startSize + delta));
-                    
-                    // Update size
                     element.style.fontSize = `${newSize}px`;
                     selectedEmojis[index].fontSize = newSize;
-                    
                     e.preventDefault();
                 }
             });
@@ -1239,14 +1344,13 @@
             });
         }
 
-        // Capture photo from camera - FIXED (no longer inverted)
+        // Capture photo from camera
         function capturePhoto() {
             const canvas = document.createElement('canvas');
             canvas.width = cameraVideo.videoWidth;
             canvas.height = cameraVideo.videoHeight;
             const ctx = canvas.getContext('2d');
             
-            // Fix camera inversion by flipping the canvas back
             ctx.translate(canvas.width, 0);
             ctx.scale(-1, 1);
             ctx.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
@@ -1254,20 +1358,18 @@
             userPhotoData = canvas.toDataURL('image/png');
             photoPreview.src = userPhotoData;
             
-            // Stop camera stream
-            cameraVideo.srcObject.getTracks().forEach(track => track.stop());
+            if (cameraVideo.srcObject) {
+                cameraVideo.srcObject.getTracks().forEach(track => track.stop());
+                cameraVideo.srcObject = null;
+            }
             
             cameraView.style.display = 'none';
             editorView.style.display = 'block';
+            loadEditorAd();
             
-            // Store container width for size calculations
             editorContainerWidth = memeContainer.offsetWidth;
-            
-            // Render emoji overlays
             renderEmojiOverlays();
-            
-            // Adjust font sizes
-            setTimeout(adjustFontSizes, 100);
+            setTimeout(adjustEditorControlSizes, 100);
         }
 
         // Show emoji selection view
@@ -1292,14 +1394,12 @@
 
         // Generate final meme
         function generateMeme() {
-            // Get the selected caption
             if (captionSelect.value === 'custom') {
                 selectedCaption = customCaption.value.trim();
             } else {
                 selectedCaption = captionSelect.value;
             }
             
-            // If no caption is selected, use a default one
             if (!selectedCaption) {
                 selectedCaption = "Mood Mirror Meme";
             }
@@ -1309,41 +1409,50 @@
             const img = new Image();
             
             img.onload = function() {
-                // Use the natural image dimensions for highest quality
                 const width = img.naturalWidth;
                 const height = img.naturalHeight;
-                
                 canvas.width = width;
                 canvas.height = height;
-                
-                // Draw user photo
                 ctx.drawImage(img, 0, 0, width, height);
                 
-                // Calculate scaling factor between displayed image and actual image
-                const previewRect = photoPreview.getBoundingClientRect();
-                const imageRect = photoPreview.getBoundingClientRect();
+                const boxWidth = photoPreview.offsetWidth;
+                const boxHeight = photoPreview.offsetHeight;
+                const naturalAspectRatio = width / height;
+                const boxAspectRatio = boxWidth / boxHeight;
+
+                let renderedImageWidth, renderedImageHeight, offsetX, offsetY;
+
+                if (naturalAspectRatio > boxAspectRatio) {
+                    renderedImageWidth = boxWidth;
+                    renderedImageHeight = renderedImageWidth / naturalAspectRatio;
+                    offsetX = 0;
+                    offsetY = (boxHeight - renderedImageHeight) / 2;
+                } else {
+                    renderedImageHeight = boxHeight;
+                    renderedImageWidth = renderedImageHeight * naturalAspectRatio;
+                    offsetY = 0;
+                    offsetX = (boxWidth - renderedImageWidth) / 2;
+                }
                 
-                // Calculate scale factors
-                const scaleX = width / imageRect.width;
-                const scaleY = height / imageRect.height;
+                const scale = width / renderedImageWidth;
                 
-                // Draw all emojis
                 selectedEmojis.forEach(emojiObj => {
-                    // Calculate position based on percentages
-                    const x = (emojiObj.x / 100) * width;
-                    const y = (emojiObj.y / 100) * height;
+                    const pixelX_in_box = (emojiObj.x / 100) * boxWidth;
+                    const pixelY_in_box = (emojiObj.y / 100) * boxHeight;
+                    const pixelX_on_image = pixelX_in_box - offsetX;
+                    const pixelY_on_image = pixelY_in_box - offsetY;
+                    const finalPercentX = (pixelX_on_image / renderedImageWidth) * 100;
+                    const finalPercentY = (pixelY_on_image / renderedImageHeight) * 100;
+                    const x = (finalPercentX / 100) * width;
+                    const y = (finalPercentY / 100) * height;
+                    const scaledEmojiSize = emojiObj.fontSize * scale;
                     
-                    // Calculate scaled size - use the same scale factor for both dimensions
-                    const scaledEmojiSize = emojiObj.fontSize * scaleX;
-                    
-                    // Add emoji
                     ctx.font = `bold ${scaledEmojiSize}px Arial`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText(emojiObj.emoji, x, y);
                 });
                 
-                // Add caption with better text wrapping
                 const captionFontSize = Math.max(24, Math.min(48, width / 20));
                 ctx.font = `bold ${captionFontSize}px Arial`;
                 ctx.fillStyle = 'white';
@@ -1351,27 +1460,26 @@
                 ctx.lineWidth = Math.max(3, captionFontSize / 8);
                 ctx.textAlign = 'center';
                 
-                // Simple text wrapping
                 const maxTextWidth = width * 0.9;
-                const lines = [];
-                let line = '';
                 const words = selectedCaption.split(' ');
-                
-                for (let i = 0; i < words.length; i++) {
-                    const testLine = line + words[i] + ' ';
-                    const metrics = ctx.measureText(testLine);
-                    if (metrics.width > maxTextWidth && i > 0) {
-                        lines.push(line);
-                        line = words[i] + ' ';
+                const lines = [];
+                let currentLine = words[0] || '';
+
+                for (let i = 1; i < words.length; i++) {
+                    const word = words[i];
+                    const widthWithWord = ctx.measureText(currentLine + " " + word).width;
+                    if (widthWithWord < maxTextWidth) {
+                        currentLine += " " + word;
                     } else {
-                        line = testLine;
+                        lines.push(currentLine);
+                        currentLine = word;
                     }
                 }
-                lines.push(line);
+                lines.push(currentLine);
                 
-                // Draw text lines
-                const lineHeight = captionFontSize * 1.4;
-                const textY = height - (lines.length * lineHeight) - 30;
+                const lineHeight = captionFontSize * 1.2;
+                const bottomMargin = height * 0.05;
+                let textY = height - bottomMargin - ( (lines.length -1) * lineHeight );
                 
                 lines.forEach((line, index) => {
                     const y = textY + (index * lineHeight);
@@ -1379,7 +1487,6 @@
                     ctx.fillText(line, width / 2, y);
                 });
                 
-                // Set final meme
                 finalMemeDataURL = canvas.toDataURL('image/png');
                 finalMeme.src = finalMemeDataURL;
                 
@@ -1398,22 +1505,15 @@
             link.click();
         }
 
-        // Share meme - UPDATED to share the actual image
+        // Share meme
         function shareMeme(platform) {
-            // Hide any previous feedback
             shareFeedback.style.display = 'none';
-            
-            // Check if Web Share API is available and can share files
             if (navigator.share && navigator.canShare) {
                 try {
-                    // Convert data URL to blob
                     fetch(finalMemeDataURL)
                         .then(res => res.blob())
                         .then(blob => {
-                            // Create file from blob
                             const file = new File([blob], 'mood-mirror-meme.png', { type: 'image/png' });
-                            
-                            // Check if the browser can share files
                             const shareData = {
                                 title: 'My Mood Mirror Meme',
                                 text: 'Check out this meme I made with Mood Mirror!',
@@ -1421,17 +1521,17 @@
                             };
                             
                             if (navigator.canShare(shareData)) {
-                                // Share the image file
                                 navigator.share(shareData)
                                     .then(() => {
                                         showShareFeedback('Meme shared successfully!', true);
                                     })
                                     .catch(error => {
-                                        console.error('Error sharing:', error);
-                                        fallbackShare(platform);
+                                        if (error.name !== 'AbortError') {
+                                           console.error('Error sharing:', error);
+                                           fallbackShare(platform);
+                                        }
                                     });
                             } else {
-                                // Fall back to URL sharing
                                 fallbackShare(platform);
                             }
                         })
@@ -1444,16 +1544,14 @@
                     fallbackShare(platform);
                 }
             } else {
-                // Fall back to URL sharing
                 fallbackShare(platform);
             }
         }
 
-        // Fallback share method for browsers that don't support file sharing
+        // Fallback share method
         function fallbackShare(platform) {
             const shareUrl = window.location.href;
             const shareText = 'Check out this meme I made with Mood Mirror!';
-            
             let shareWindowUrl;
             
             switch(platform) {
@@ -1467,7 +1565,6 @@
                     shareWindowUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
                     break;
                 case 'tiktok':
-                    // TikTok doesn't have a direct share API, so we'll open in a new tab
                     window.open(shareUrl, '_blank');
                     showShareFeedback('Please download the meme and share it directly on TikTok', false);
                     return;
@@ -1475,9 +1572,8 @@
                     console.error('Unknown platform:', platform);
                     return;
             }
-            
             window.open(shareWindowUrl, '_blank');
-            showShareFeedback(`Shared to ${platform}! In a real app, this would share directly.`, true);
+            showShareFeedback(`Shared to ${platform}! To share the image, use the native share on your device.`, true);
         }
 
         // Show share feedback to user
@@ -1485,8 +1581,6 @@
             shareFeedback.textContent = message;
             shareFeedback.className = `share-feedback ${isSuccess ? 'share-success' : 'share-error'}`;
             shareFeedback.style.display = 'block';
-            
-            // Hide feedback after 5 seconds
             setTimeout(() => {
                 shareFeedback.style.display = 'none';
             }, 5000);
@@ -1496,7 +1590,6 @@
         function shareApp(platform) {
             const shareUrl = window.location.href;
             const shareText = 'Check out Mood Mirror - a free tool to create hilarious memes with your photos and emojis!';
-            
             let shareWindowUrl;
             
             switch(platform) {
@@ -1513,14 +1606,13 @@
                     console.error('Unknown platform:', platform);
                     return;
             }
-            
             window.open(shareWindowUrl, '_blank');
         }
 
         // Start over
         function startOver() {
             previewView.style.display = 'none';
-            homeView.style.display = 'block';
+            showHome();
             selectedEmojis = [];
             userPhotoData = null;
             selectedCaption = '';
@@ -1528,16 +1620,11 @@
             captionSelect.value = '';
             customCaption.value = '';
             customCaption.style.display = 'none';
-            
-            // Clear emoji overlays
             document.querySelectorAll('.memoji-overlay').forEach(el => el.remove());
-            
-            // Update UI
             updateEmojiCounter();
             renderSelectedEmojisList();
         }
 
-        // Initialize the app when the page loads
         window.onload = initApp;
     </script>
     <footer style="margin-top: 60px; text-align: center; color: #666; font-size: 14px; padding: 20px; border-top: 1px solid #eee;">
@@ -1547,5 +1634,6 @@
     <a href="/about.html" style="margin: 0 10px;">About Us</a>
     <p>&copy; 2025 Mood Mirror. All rights reserved.</p>
 </footer>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
