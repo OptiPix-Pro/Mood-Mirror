@@ -455,6 +455,13 @@
             flex-shrink: 0;
         }
     </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.22.0"
+  }
+}
+</script>
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
@@ -505,7 +512,10 @@
             <button class="btn" id="addEmojiButton" onclick="showEmojiSelection()">Add Emojis (0/3)</button>
             
             <div class="caption-area">
-                <p>Choose a Caption:</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <p style="margin: 0;">Choose a Caption:</p>
+                    <button id="aiCaptionBtn" class="btn btn-secondary btn-small" onclick="generateAiCaptions()" style="margin: 0; max-width: 180px;">✨ Generate with AI</button>
+                </div>
                 <select class="caption-select" id="captionSelect" onchange="handleCaptionChange()">
                     <option value="">Select a caption...</option>
                     <!-- Will be populated by JavaScript -->
@@ -566,7 +576,8 @@
             <button id="declineCookies" class="btn btn-small btn-secondary">Decline</button>
         </div>
     </div>
-
+    
+    <script type="module" src="index.tsx"></script>
     <script>
         // State variables
         let selectedEmojis = [];
@@ -716,6 +727,10 @@
             "My bank account: 🕳️👀🌀",
             "My mental health: 🎢🌪️🎭"
         ];
+        
+        // --- Expose variables to the window object for the TSX module ---
+        window.userPhotoData = userPhotoData;
+        window.selectedEmojis = selectedEmojis;
         
         // --- Consent Management ---
         function setCookie(name, value, days) {
@@ -1004,6 +1019,8 @@
                 selectedCaption = selectedValue;
             }
         }
+        window.handleCaptionChange = handleCaptionChange;
+
 
         // Populate featured memes on home screen
         function populateFeaturedMemes() {
@@ -1128,6 +1145,7 @@
                             ctx.drawImage(img, 0, 0, width, height);
                             
                             userPhotoData = canvas.toDataURL('image/jpeg', 0.8);
+                            window.userPhotoData = userPhotoData;
                             photoPreview.src = userPhotoData;
                             
                             homeView.style.display = 'none';
@@ -1357,6 +1375,7 @@
             ctx.drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
             
             userPhotoData = canvas.toDataURL('image/png');
+            window.userPhotoData = userPhotoData;
             photoPreview.src = userPhotoData;
             
             if (cameraVideo.srcObject) {

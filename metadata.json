@@ -1,4 +1,5 @@
 {
   "name": "Mood Mirror 2.0",
-  "description": "Create hilarious, personalized memes in seconds! Upload a photo, add up to 3 emojis and a caption, and share your mood with the world. 100% free, no sign-up needed."
+  "description": "Create hilarious, personalized memes in seconds! Upload a photo, add up to 3 emojis and a caption, and share your mood with the world. 100% free, no sign-up needed.",
+  "requestFramePermissions": []
 }
