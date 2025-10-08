@@ -1,5 +1,1 @@
-# Mood Mirror - Authorized Google AdSense Publisher
-# Site: https://mood-mirror-xdwq.onrender.com
-# All ads served comply with our privacy-first promise.
-# Files processed locally. No tracking. No data sold.
 google.com, pub-2629754813976130, DIRECT, f08c47fec0942fa0
