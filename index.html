@@ -406,6 +406,24 @@
             border-color: var(--primary);
             box-shadow: 0 0 8px var(--primary);
         }
+        .support-us-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            color: #4A4A4A;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 10;
+        }
+        .support-us-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
         @media (max-width: 768px) {
             .memoji-overlay {
                 font-size: 15vw;
@@ -415,6 +433,18 @@
             }
             .emoji-grid {
                 grid-template-columns: repeat(5, 1fr);
+            }
+            .main-header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .support-us-badge {
+                position: static;
+                margin-bottom: 15px;
+            }
+            .header-container {
+                margin-bottom: 0;
             }
         }
         @media (max-width: 480px) {
@@ -463,24 +493,6 @@
         }
         .share-btn.tiktok {
             background: #000;
-        }
-        .support-us-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: linear-gradient(to right, #ffafbd, #ffc3a0);
-            color: #4A4A4A;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            z-index: 10;
-        }
-        .support-us-badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         /* New styles for sharing feedback */
         .share-feedback {
@@ -591,14 +603,15 @@
         })();
     </script>
     <div class="container">
-        <a href="/contact.html" class="support-us-badge">Support Us ❤️</a>
-        
-        <div class="header-container">
-            <h1>Mood Mirror</h1>
-            <label class="theme-switch" for="theme-toggle" title="Toggle dark mode">
-                <input type="checkbox" id="theme-toggle" />
-                <span class="slider"></span>
-            </label>
+        <div class="main-header">
+            <a href="/contact.html" class="support-us-badge">Support Us ❤️</a>
+            <div class="header-container">
+                <h1>Mood Mirror</h1>
+                <label class="theme-switch" for="theme-toggle" title="Toggle dark mode">
+                    <input type="checkbox" id="theme-toggle" />
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
         <p class="subtitle">Create Viral Memes with Your Mood</p>
 
