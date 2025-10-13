@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood Mirror - Contact Us</title>
+    <title>Mood Mirror - Contact & FAQ</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -15,7 +15,7 @@
             padding: 20px;
             background-color: #f9f9f9;
         }
-        h1 {
+        h1, h2 {
             color: #6a11cb;
         }
         a {
@@ -23,37 +23,72 @@
             text-decoration: none;
             font-weight: bold;
         }
+        a:hover {
+            text-decoration: underline;
+        }
         .container {
             background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
+        }
+        .faq-section {
+            text-align: left;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+        }
+        .faq-item h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .contact-info {
+             text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Get in Touch</h1>
-        <p>
-            We'd love to hear from you! Whether you have a question, a feature request, or just want to share a meme you created, feel free to reach out.
-        </p>
-        <p>
-            The best way to contact us is via email:
-        </p>
-        <p>
-            <a href="mailto:moodmirror.app@gmail.com">moodmirror.app@gmail.com</a>
-        </p>
-        <p>
-            We do our best to respond to all inquiries within 48 business hours. Thank you for using Mood Mirror!
-        </p>
-
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-            <p><strong>Enjoying Mood Mirror?</strong> Consider supporting our work to help us grow. Every bit helps!</p>
-            <p>Thank you for using Mood Mirror!</p>
+        <div class="contact-info">
+            <h1>Get in Touch</h1>
+            <p>
+                We'd love to hear from you! Whether you have a question, a feature request, or just want to share a meme you created, feel free to reach out.
+            </p>
+            <p>
+                The best way to contact us is via email:
+            </p>
+            <p>
+                <a href="mailto:moodmirror.app@gmail.com">moodmirror.app@gmail.com</a>
+            </p>
+            <p>
+                We do our best to respond to all inquiries within 48 business hours.
+            </p>
         </div>
 
-        <p style="margin-top: 30px;">
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3>What is Mood Mirror?</h3>
+                <p>Mood Mirror is a free, browser-based tool that lets you create personalized memes in seconds. You can use your camera or upload a photo, add emojis and captions, and share your creation. Find out more on our <a href="/about.html">About Us</a> page.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is it really free to use?</h3>
+                <p>Yes, 100%! Mood Mirror is completely free. We support the site through unobtrusive ads. You can create and download as many memes as you like without any cost.</p>
+            </div>
+             <div class="faq-item">
+                <h3>Are my photos private and secure?</h3>
+                <p>Absolutely. Your privacy is our top priority. All image processing happens directly in your browser. Your photos are never uploaded to our servers. Read our full <a href="/privacy-policy.html">Privacy Policy</a> for more details.</p>
+            </div>
+             <div class="faq-item">
+                <h3>How can I support Mood Mirror?</h3>
+                <p>Thank you for asking! The best way to support us is by sharing the app with your friends. You can also send us feedback or feature ideas via email. We're a small team, and every bit of support helps us keep the tool free for everyone.</p>
+            </div>
+        </div>
+
+        <p style="margin-top: 30px; text-align: center;">
             <a href="/">← Back to Home</a>
         </p>
     </div>
