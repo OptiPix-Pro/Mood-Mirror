@@ -2,51 +2,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mood Mirror - Create Viral Memes with Your Mood | Free Online Tool</title>
-    <meta name="description" content="Create hilarious, personalized memes in seconds! Upload a photo, add up to 3 emojis and a caption, and share your mood with the world. 100% free, no sign-up needed.">
-    <meta name="keywords" content="meme generator, create memes, funny memes, mood meme, viral meme, emoji meme, free meme maker, online meme tool, share meme, social media meme">
-    <meta name="author" content="Mood Mirror">
-    <meta name="google-site-verification" content="9fOwJUM_DTiIYgQMQHeK5o1DRKXWr1l_DbYwAuZap48" />
-    <meta name="robots" content="index, follow">
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Mood Mirror - Create Viral Memes with Your Mood">
-    <meta property="og:description" content="Turn your selfie into a hilarious viral meme in seconds. Free, no sign-up, and loads of fun!">
-    <meta property="og:image" content="https://mood-mirror-xdwq.onrender.com/preview-image.jpg">
-    <meta property="og:url" content="https://mood-mirror-xdwq.onrender.com/">
-    <meta property="og:type" content="website">
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mood Mirror - Create Viral Memes with Your Mood">
-    <meta name="twitter:description" content="Turn your selfie into a hilarious viral meme in seconds. Free, no sign-up, and loads of fun!">
-    <meta name="twitter:image" content="https://mood-mirror-xdwq.onrender.com/preview-image.jpg">
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://mood-mirror-xdwq.onrender.com/" />
-    <!-- Preconnect to Google AdSense for faster ad loading -->
-    <link rel="preconnect" href="https://pagead2.googlesyndication.com">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&display=swap" rel="stylesheet">
-    <!-- AdSense Script -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2629754813976130" crossorigin="anonymous"></script>
-    <!-- Structured Data (JSON-LD) for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Mood Mirror",
-      "description": "A free, browser-based tool to create funny, personalized memes by combining your photo with emojis and captions.",
-      "applicationCategory": "EntertainmentApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-    </script>
+  <!-- Encoding + viewport first -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- Optional: helps some AdSense verification flows -->
+  <meta name="google-adsense-account" content="ca-pub-2629754813976130">
+
+  <!-- Google Consent Mode v2 (set defaults BEFORE loading any Google tags) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+
+    // Deny by default in EEA/UK/CH
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      wait_for_update: 500
+    }, {
+      region: [
+        'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT',
+        'LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+        'IS','LI','NO','GB','CH'
+      ]
+    });
+
+    // Grant by default elsewhere
+    gtag('consent', 'default', {
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+      analytics_storage: 'granted'
+    });
+
+    // Optional hardening
+    gtag('set', 'ads_data_redaction', true);
+    // gtag('set', 'url_passthrough', false);
+  </script>
+
+  <!-- Funding Choices CMP (loads after consent defaults) -->
+  <script async src="https://fundingchoicesmessages.google.com/i/pub-2629754813976130?ers=1"></script>
+
+  <!-- AdSense loader (one copy sitewide) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2629754813976130" crossorigin="anonymous"></script>
+
+  <!-- Preconnects to speed up ads -->
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://googleads.g.doubleclick.net">
+  <link rel="preconnect" href="https://tpc.googlesyndication.com">
+
+  <!-- SEO + Social -->
+  <title>Mood Mirror - Create Viral Memes with Your Mood | Free Online Tool</title>
+  <meta name="description" content="Create hilarious, personalized memes in seconds! Upload a photo, add up to 3 emojis and a caption, and share your mood with the world. 100% free, no sign-up needed.">
+  <meta name="keywords" content="meme generator, create memes, funny memes, mood meme, viral meme, emoji meme, free meme maker, online meme tool, share meme, social media meme">
+  <meta name="author" content="Mood Mirror">
+  <meta name="google-site-verification" content="9fOwJUM_DTiIYgQMQHeK5o1DRKXWr1l_DbYwAuZap48">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Mood Mirror - Create Viral Memes with Your Mood">
+  <meta property="og:description" content="Turn your selfie into a hilarious viral meme in seconds. Free, no sign-up, and loads of fun!">
+  <meta property="og:image" content="https://mood-mirror-xdwq.onrender.com/preview-image.jpg">
+  <meta property="og:url" content="https://mood-mirror-xdwq.onrender.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mood Mirror - Create Viral Memes with Your Mood">
+  <meta name="twitter:description" content="Turn your selfie into a hilarious viral meme in seconds. Free, no sign-up, and loads of fun!">
+  <meta name="twitter:image" content="https://mood-mirror-xdwq.onrender.com/preview-image.jpg">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://mood-mirror-xdwq.onrender.com/">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Lobster&display=swap" rel="stylesheet">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Mood Mirror",
+    "applicationCategory": "CreativeApplication",
+    "operatingSystem": "Web",
+    "url": "https://mood-mirror-xdwq.onrender.com/",
+    "image": "https://mood-mirror-xdwq.onrender.com/og-image.jpg",
+    "description": "Create personalized memes privately in your browser—no uploads, just fast, fun meme-making.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Mood Mirror" }
+  }
+  </script>
     <style>
         :root {
             --primary: #6a11cb;
@@ -908,7 +958,7 @@ document.addEventListener('DOMContentLoaded', populateRandomMemes);
 
     <!-- Cookie Consent Banner -->
     <div id="cookieConsentBanner" class="cookie-consent-banner" style="display: none;">
-        <p>We use cookies to personalize ads and improve your experience. See our <a href="/privacy-policy.html">Privacy Policy</a> for more details.</p>
+        <p>We use cookies to personalize ads and improve your experience. See our <a href="/privacyy.html">Privacy Policy</a> for more details.</p>
         <div>
             <button id="acceptCookies" class="btn btn-small">Accept</button>
             <button id="declineCookies" class="btn btn-small btn-secondary">Decline</button>
@@ -1084,7 +1134,7 @@ document.addEventListener('DOMContentLoaded', populateRandomMemes);
         window.userPhotoData = userPhotoData;
         window.selectedEmojis = selectedEmojis;
         
-        // --- Consent Management ---
+  // --- Consent Management ---
         function setCookie(name, value, days) {
             let expires = "";
             if (days) {
@@ -2163,156 +2213,171 @@ function loadTemplate(path) {
 
         window.onload = initApp;
     </script>
-    <footer style="margin-top: 60px; text-align: center; color: #666; font-size: 14px; padding: 20px; border-top: 1px solid var(--input-border-color);">
-    <a href="/privacy-policy.html" style="margin: 0 10px; color: var(--secondary);">Privacy Policy</a> |
-    <a href="/terms-of-service.html" style="margin: 0 10px; color: var(--secondary);">Terms of Service</a> |
-    <a href="/contact.html" style="margin: 0 10px; color: var(--secondary);">Contact</a> |
-    <a href="/about.html" style="margin: 0 10px; color: var(--secondary);">About Us</a>
-    <p>&copy; 2025 Mood Mirror. All rights reserved.</p>
+ <footer style="margin-top: 60px; text-align: center; color: #666; font-size: 14px; padding: 20px; border-top: 1px solid var(--input-border-color);">
+  <a href="/privacy.html" style="margin: 0 10px; color: var(--secondary);">Privacy Policy</a> |
+  <a href="/terms-of-service.html" style="margin: 0 10px; color: var(--secondary);">Terms of Service</a> |
+  <a href="/contact.html" style="margin: 0 10px; color: var(--secondary);">Contact</a> |
+  <a href="/about.html" style="margin: 0 10px; color: var(--secondary);">About Us</a>
+  <p>&copy; 2025 Mood Mirror. All rights reserved.</p>
+  <button type="button" onclick="openConsentManager()" style="background:none;border:0;color:#2575fc;cursor:pointer;padding:0;text-decoration:underline">Cookie Settings</button>
 </footer>
+
 <script type="module" src="/index.tsx"></script>
 
 <script>
-// --- Fallback More Templates builder ---
-if (typeof showMoreTemplates !== 'function') {
-  window.showMoreTemplates = function() {
-    const container = document.getElementById('moreTemplatesContainer');
-    if (!container) return;
-    container.innerHTML = '';
+  /* --- Fallback More Templates builder --- */
+  if (typeof showMoreTemplates !== 'function') {
+    window.showMoreTemplates = function() {
+      const container = document.getElementById('moreTemplatesContainer');
+      if (!container) return;
+      container.innerHTML = '';
 
-    // Collect candidate images from page: prefer embedded data: URLs and images in meme-sample placeholders
-    const imgs = Array.from(document.querySelectorAll('img')).filter(img => {
-      if (!img.src) return false;
-      return img.src.startsWith('data:') || img.src.includes('/public/assets/meme-templates') || img.alt.includes('Meme');
-    });
+      const imgs = Array.from(document.querySelectorAll('img')).filter(img => {
+        if (!img.src) return false;
+        return img.src.startsWith('data:') ||
+               img.src.includes('/public/assets/meme-templates') ||
+               (img.alt || '').includes('Meme');
+      });
 
-    // Build unique list by src
-    const seen = new Set();
-    const templates = imgs.map(img => {
-      const src = img.src;
-      if (seen.has(src)) return null;
-      seen.add(src);
-      const name = (img.alt || '').replace(' Meme','').trim() || 'Template';
-      return { name: name, src: src };
-    }).filter(Boolean);
+      const seen = new Set();
+      const templates = imgs.map(img => {
+        const src = img.src;
+        if (seen.has(src)) return null;
+        seen.add(src);
+        const name = (img.alt || '').replace(' Meme','').trim() || 'Template';
+        return { name, src };
+      }).filter(Boolean);
 
-    // If none found, try to collect from data-* attributes or other img tags
-    if (templates.length === 0) {
-      const allImgs = Array.from(document.querySelectorAll('img'));
-      allImgs.forEach(img => {
-        const src = img.getAttribute('data-src') || img.src || '';
-        if (src && !seen.has(src) && (src.startsWith('data:') || src.indexOf('.jpg')>-1||src.indexOf('.png')>-1)) {
-          seen.add(src);
-          templates.push({ name: (img.alt||'Template').replace(' Meme','').trim(), src: src });
+      if (templates.length === 0) {
+        const allImgs = Array.from(document.querySelectorAll('img'));
+        allImgs.forEach(img => {
+          const src = img.getAttribute('data-src') || img.src || '';
+          if (src && !seen.has(src) && (src.startsWith('data:') || src.endsWith('.jpg') || src.endsWith('.png'))) {
+            seen.add(src);
+            templates.push({ name: (img.alt || 'Template').replace(' Meme','').trim(), src });
+          }
+        });
+      }
+
+      if (templates.length === 0) {
+        container.innerHTML = '<p style="color:#666">No templates available to display.</p>';
+        return;
+      }
+
+      for (let i = templates.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [templates[i], templates[j]] = [templates[j], templates[i]];
+      }
+
+      templates.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'meme-sample';
+        div.style.flex = '1 0 21%';
+        div.style.maxWidth = '220px';
+        div.style.boxSizing = 'border-box';
+        div.style.cursor = 'pointer';
+        div.style.margin = '5px';
+        div.onclick = () => {
+          if (typeof loadTemplate === 'function') loadTemplate(t.src);
+          else alert('Editor not available');
+        };
+        div.innerHTML = `<img src="${t.src}" alt="${t.name} Meme"><p>${t.name}</p>`;
+        container.appendChild(div);
+      });
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('moreTemplatesBtn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const container = document.getElementById('moreTemplatesContainer');
+        if (!container) return;
+        if (container.style.display === 'none' || container.style.display === '') {
+          container.style.display = 'flex';
+          window.showMoreTemplates();
+          btn.textContent = 'Hide Templates';
+        } else {
+          container.style.display = 'none';
+          btn.textContent = 'More Templates';
         }
       });
     }
-
-    // Fallback: if still empty, show message
-    if (templates.length === 0) {
-      container.innerHTML = '<p style="color:#666">No templates available to display.</p>';
-      return;
-    }
-
-    // Shuffle templates
-    for (let i = templates.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [templates[i], templates[j]] = [templates[j], templates[i]];
-    }
-
-    // Populate grid (responsive)
-    templates.forEach(t => {
-      const div = document.createElement('div');
-      div.className = 'meme-sample';
-      div.style.flex = '1 0 21%';
-      div.style.maxWidth = '220px';
-      div.style.boxSizing = 'border-box';
-      div.style.cursor = 'pointer';
-      div.style.margin = '5px';
-      div.onclick = () => { if (typeof loadTemplate === 'function') loadTemplate(t.src); else alert('Editor not available'); };
-      div.innerHTML = `<img src="${t.src}" alt="${t.name} Meme"><p>${t.name}</p>`;
-      container.appendChild(div);
-    });
-  };
-}
-// Ensure button is wired (in case earlier handler failed)
-document.addEventListener('DOMContentLoaded', () => {
-  const btn = document.getElementById('moreTemplatesBtn');
-  if (btn) {
-    btn.removeEventListener && btn.removeEventListener('click', window.showMoreTemplates);
-    btn.addEventListener('click', () => {
-      const container = document.getElementById('moreTemplatesContainer');
-      if (!container) return;
-      if (container.style.display === 'none' || container.style.display === '') {
-        container.style.display = 'flex';
-        window.showMoreTemplates();
-        btn.textContent = 'Hide Templates';
-      } else {
-        container.style.display = 'none';
-        btn.textContent = 'More Templates';
-      }
-    });
-  }
-});
+  });
 </script>
-<script>
-(function(){
-  const banner = document.getElementById('offlineBanner');
-  function showBanner() {
-    banner.style.display='block';
-    setTimeout(()=>banner.style.transform='translateY(0)',20);
-    document.querySelectorAll('button, a').forEach(el=>el.disabled=true);
-  }
-  function hideBanner() {
-    banner.style.transform='translateY(-100%)';
-    setTimeout(()=>banner.style.display='none',300);
-    document.querySelectorAll('button, a').forEach(el=>el.disabled=false);
-  }
-  window.addEventListener('offline', showBanner);
-  window.addEventListener('online', hideBanner);
-  if(!navigator.onLine) showBanner();
-})();
-</script>
-<!-- === Online / Offline Status Detection === -->
+
+<!-- === Online / Offline Status Detection (single version) === -->
 <style>
-#offlineBanner {
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  background:#007bff;
-  color:#fff;
-  text-align:center;
-  padding:12px;
-  font-weight:bold;
-  z-index:9999;
-  box-shadow:0 2px 6px rgba(0,0,0,0.2);
-}
-</style>
-
-<div id="offlineBanner">⚠️ You’re offline — reconnect to continue.</div>
-
-<script>
-(function(){
-  const banner = document.getElementById('offlineBanner');
-
-  function setOnlineStatus(isOnline){
-    const allBtns = document.querySelectorAll('button, input[type="button"], .editor-control');
-    if(isOnline){
-      banner.style.display = 'none';
-      allBtns.forEach(b => b.disabled = false);
-    } else {
-      banner.style.display = 'block';
-      allBtns.forEach(b => b.disabled = true);
-    }
+  #offlineBanner {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:#007bff;
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    font-weight:bold;
+    z-index:9999;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
   }
-
-  window.addEventListener('online', () => setOnlineStatus(true));
-  window.addEventListener('offline', () => setOnlineStatus(false));
-  document.addEventListener('DOMContentLoaded', () => setOnlineStatus(navigator.onLine));
-})();
+</style>
+<div id="offlineBanner">⚠️ You’re offline — reconnect to continue.</div>
+<script>
+  (function(){
+    const banner = document.getElementById('offlineBanner');
+    function setOnlineStatus(isOnline){
+      const allBtns = document.querySelectorAll('button, input[type="button"], .editor-control');
+      if(isOnline){
+        banner.style.display = 'none';
+        allBtns.forEach(b => b.disabled = false);
+      } else {
+        banner.style.display = 'block';
+        allBtns.forEach(b => b.disabled = true);
+      }
+    }
+    window.addEventListener('online', () => setOnlineStatus(true));
+    window.addEventListener('offline', () => setOnlineStatus(false));
+    document.addEventListener('DOMContentLoaded', () => setOnlineStatus(navigator.onLine));
+  })();
 </script>
 <!-- === End Online / Offline Status Detection === -->
+
+<script>
+  // Updated to reopen Google Funding Choices (and keep your fallbacks)
+  function openConsentManager() {
+    try {
+      // Funding Choices (Google) — reopen consent/revoke dialog if ready
+      if (window.googlefc?.showRevocationMessage) {
+        window.googlefc.showRevocationMessage();
+        return;
+      }
+
+      // If Funding Choices isn't ready yet, queue the call for when its API is ready
+      window.googlefc = window.googlefc || {};
+      (window.googlefc.callbackQueue = window.googlefc.callbackQueue || []).push({
+        'CONSENT_API_READY': () => {
+          try { window.googlefc.showRevocationMessage(); } catch(e){}
+        }
+      });
+
+      // Other CMP fallbacks (only trigger if you actually use them)
+      if (window.Cookiebot?.show) return window.Cookiebot.show();
+      if (window.CookieYes?.showSettings) return window.CookieYes.showSettings();
+      if (window.OneTrust?.ToggleInfoDisplay) return window.OneTrust.ToggleInfoDisplay();
+      if (window.didomi?.notice?.show) return window.didomi.notice.show();
+
+      // IAB TCF API generic fallback
+      if (typeof window.__tcfapi === 'function') {
+        window.__tcfapi('displayConsentUi', 2, function(){});
+        return;
+      }
+    } catch(e) {
+      console.warn('openConsentManager error:', e);
+    }
+    alert('Cookie preferences are managed via our consent banner. If you do not see it, please clear cookies or contact us.');
+  }
+</script>
 </body>
 </html>

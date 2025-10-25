@@ -1,31 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Mood Mirror - Terms of Service</title>
+  <meta charset="UTF-8" />
+  <title>Mood Mirror - Terms of Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Terms governing your use of Mood Mirror. Read about acceptable use, disclaimers, and your responsibilities." />
+  <link rel="canonical" href="https://mood-mirror-xdwq.onrender.com/terms-of-service.html" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- OG -->
+  <meta property="og:title" content="Mood Mirror - Terms of Service" />
+  <meta property="og:description" content="Terms governing your use of Mood Mirror." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://mood-mirror-xdwq.onrender.com/terms-of-service.html" />
+  <meta property="og:image" content="https://mood-mirror-xdwq.onrender.com/og-image.jpg" />
+
+  <!-- CMP -->
+  <script async src="https://fundingchoicesmessages.google.com/i/pub-2629754813976130?ers=1"></script>
 </head>
 <body style="font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px;">
-    <h1>Terms of Service</h1>
-    <p>Last updated: May 21, 2024</p>
+  <p style="margin-bottom:16px"><a href="/">Home</a> · <a href="/about.html">About</a> · <a href="/privacy.html">Privacy</a> · <a href="/contact.html">Contact</a></p>
 
-    <p>Welcome to Mood Mirror! By using our service, you agree to the following terms:</p>
+  <h1>Terms of Service</h1>
+  <p>Last updated: October 25, 2025</p>
 
-    <h2>1. Acceptable Use</h2>
-    <p>You may not create memes that are:</p>
-    <ul>
-        <li>Defamatory, hateful, or discriminatory</li>
-        <li>Infringing on copyrights or trademarks</li>
-        <li>Sexually explicit or violent</li>
-        <li>Used for spam or phishing</li>
-    </ul>
+  <p>Welcome to Mood Mirror! By using our service, you agree to the following terms:</p>
 
-    <h2>2. No Liability</h2>
-    <p>We are not responsible for content created by users. All memes are generated locally in your browser.</p>
+  <h2>1. Acceptable Use</h2>
+  <p>You may not create memes that are:</p>
+  <ul>
+    <li>Defamatory, hateful, or discriminatory</li>
+    <li>Infringing on copyrights or trademarks</li>
+    <li>Sexually explicit or violent</li>
+    <li>Used for spam or phishing</li>
+  </ul>
 
-    <h2>3. Intellectual Property</h2>
-    <p>You retain full rights to your creations. We claim no ownership over your memes.</p>
+  <h2>2. No Liability</h2>
+  <p>We are not responsible for content created by users. All memes are generated locally in your browser.</p>
 
-    <h2>4. Disclaimer</h2>
-    <p>Mood Mirror is provided "as is". We make no warranties about performance or suitability.</p>
+  <h2>3. Intellectual Property</h2>
+  <p>You retain full rights to your creations. We claim no ownership over your memes.</p>
+
+  <h2>4. Privacy & Cookies</h2>
+  <p>Your use of the site is subject to our <a href="/privacy.html">Privacy Policy</a>. In certain regions, a consent banner (CMP) manages your preferences and Google Consent Mode settings.</p>
+  <p><button type="button" onclick="openConsentManager()" style="background:none;border:0;color:#2575fc;cursor:pointer;padding:0;text-decoration:underline">Cookie Settings</button></p>
+
+  <h2>5. Disclaimer</h2>
+  <p>Mood Mirror is provided "as is". We make no warranties about performance or suitability. You use the site at your own risk.</p>
+
+  <script>
+    function openConsentManager() {
+      try {
+        if (window.Cookiebot?.show) return window.Cookiebot.show();
+        if (window.CookieYes?.showSettings) return window.CookieYes.showSettings();
+        if (window.OneTrust?.ToggleInfoDisplay) return window.OneTrust.ToggleInfoDisplay();
+        if (window.didomi?.notice?.show) return window.didomi.notice.show();
+        if (typeof window.__tcfapi === 'function') { window.__tcfapi('displayConsentUi', 2, function(){}); return; }
+      } catch (e) {}
+      alert('Cookie preferences are managed via our consent banner. If you do not see it, please clear cookies or contact us.');
+    }
+  </script>
 </body>
 </html>
