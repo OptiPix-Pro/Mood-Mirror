@@ -290,8 +290,8 @@
     #learn-more h2 { margin: 18px 0 8px; }
     #learn-more ol, #learn-more ul { padding-left: 1.2rem; }
     #learn-more details { margin: 8px 0; }
-  </style>
-
+<!-- Examples gallery heading tweaks --> <style> /* Make the big title a bit smaller too (optional) */ #examplesGallery h1 { font-size: clamp(1.1rem, 1.3rem + 0.6vw, 1.5rem); margin-bottom: 12px; } /* Smaller h2s so they sit nicely above each image */ #examplesGallery h2 { font-size: clamp(1rem, 1.05rem + 0.4vw, 1.2rem); line-height: 1.25; margin: 10px 0 6px; } </style>
+ 
   <!-- PWA + favicon (inside head) -->
   <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32">
   <meta name="theme-color" content="#007bff">
@@ -350,17 +350,18 @@
                 <button class="share-btn twitter" onclick="shareApp('twitter')">🐦 Tweet</button>
                 <button class="share-btn whatsapp" onclick="shareApp('whatsapp')">💬 WhatsApp</button>
             </div>
-            
-            
-<div class="category-title">Popular Meme Templates</div>
-<div class="featured-memes" id="featuredMemes"></div>
 
-<div id="moreTemplatesSection" style="margin:40px auto;text-align:center;">
-  <button id="moreTemplatesBtn" style="background-color:#007bff;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:16px;cursor:pointer;transition:background-color .2s ease;">
-    Explore More Templates
-  </button>
-  <div id="moreTemplatesContainer" style="display:none;flex-wrap:wrap;gap:15px;justify-content:center;margin-top:20px;opacity:0;transform:translateY(10px);transition:opacity .3s ease, transform .3s ease;"></div>
-</div>
+            <div class="category-title">Popular Meme Templates</div>
+            <div class="featured-memes" id="featuredMemes"></div>
+
+            <div id="moreTemplatesSection" style="margin:40px auto;text-align:center;">
+              <button id="moreTemplatesBtn" style="background-color:#007bff;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:16px;cursor:pointer;transition:background-color .2s ease;">
+                Explore More Templates
+              </button>
+              <div id="moreTemplatesContainer" style="display:none;flex-wrap:wrap;gap:15px;justify-content:center;margin-top:20px;opacity:0;transform:translateY(10px);transition:opacity .3s ease, transform .3s ease;"></div>
+            </div>
+
+<!-- Examples button (ONE copy only, inline toggle) --> <div style="margin:24px auto;text-align:center;"> <button id="examplesToggleBtn" type="button" style="background-color:transparent;color:#007bff;border:2px solid #007bff;border-radius:8px;padding:10px 20px;font-size:16px;cursor:pointer;transition:background-color .2s ease, color .2s ease;" onclick="(function(btn){var g=document.getElementById('examplesGallery');var hidden=getComputedStyle(g).display==='none';g.style.display=hidden?'block':'none';btn.textContent=hidden?'Hide example memes':'See example memes';})(this)" > See example memes </button> </div> <!-- Example Gallery (hidden by default; no onclick so users can’t edit) --> <div id="examplesGallery" class="container" style="margin-top:20px; display:none;"> <h1 style="margin-bottom:10px">Meme Template Gallery (Examples)</h1> <p style="margin-bottom:20px">These examples are for inspiration only and aren’t editable.</p> <article class="template-card" style="text-align:left; margin-bottom:24px"> <h2>When Someone Drops a Plot Twist</h2> <img src="/public/assets/examples/when-someone-drops-a-plot-twist.jpg" data-alt-src="/assets/examples/when-someone-drops-a-plot-twist.jpg" alt="Example: when someone drops a plot twist" loading="lazy" style="width:100%;height:auto;border-radius:10px" onerror="if(!this.dataset.altTried){this.dataset.altTried=1;this.src=this.dataset.altSrc;}" > <p style="margin-top:8px">Perfect for surprise moments and sudden reveals. Keep the caption short and punchy.</p> </article> <article class="template-card" style="text-align:left; margin-bottom:24px"> <h2>When You Finally Get the Joke</h2> <img src="/public/assets/examples/when-you-finally-get-the-joke.jpg" data-alt-src="/assets/examples/when-you-finally-get-the-joke.jpg" alt="Example: when you finally get the joke" loading="lazy" style="width:100%;height:auto;border-radius:10px" onerror="if(!this.dataset.altTried){this.dataset.altTried=1;this.src=this.dataset.altSrc;}" > <p style="margin-top:8px">Use for delayed reactions or “aha!” moments. A single emoji can sell the payoff.</p> </article> <article class="template-card" style="text-align:left; margin-bottom:24px"> <h2>When You Realize You Sent the...</h2> <img src="/public/assets/examples/when-you-realize-you-sent-the-screenshot.jpg" data-alt-src="/assets/examples/when-you-realize-you-sent-the-screenshot.jpg" alt="Example: when you realize you sent the screenshot" loading="lazy" style="width:100%;height:auto;border-radius:10px" onerror="if(!this.dataset.altTried){this.dataset.altTried=1;this.src=this.dataset.altSrc;}" > <p style="margin-top:8px">Great for awkward oops situations. Try a short two‑line setup/punchline.</p> </article> <article class="template-card" style="text-align:left; margin-bottom:24px"> <h2>When You Remember a Random Fact</h2> <img src="/public/assets/examples/when-you-remember-random-fact.jpg" data-alt-src="/assets/examples/when-you-remember-random-fact.jpg" alt="Example: when you remember a random fact" loading="lazy" style="width:100%;height:auto;border-radius:10px" onerror="if(!this.dataset.altTried){this.dataset.altTried=1;this.src=this.dataset.altSrc;}" > <p style="margin-top:8px">Works for “brain just did a thing” vibes. Keep text big for mobile.</p> </article> <article class="template-card" style="text-align:left; margin-bottom:24px"> <h2>Me Trying to Figure Out...</h2> <img src="/public/assets/examples/me-trying-to-figure-out.jpg" data-alt-src="/assets/examples/me-trying-to-figure-out.jpg" alt="Example: me trying to figure out" loading="lazy" style="width:100%;height:auto;border-radius:10px" onerror="if(!this.dataset.altTried){this.dataset.altTried=1;this.src=this.dataset.altSrc;}" > <p style="margin-top:8px">Ideal for confusion/debugging jokes. Ensure text contrasts with the background.</p> </article> <article class="template-card" style="text-align:left; margin-bottom:24px"> <h2>That Feeling When You Realize...</h2> <img src="/public/assets/examples/that-feeling-when-you-realize.jpg" data-alt-src="/assets/examples/that-feeling-when-you-realize.jpg" alt="Example: that feeling when you realize" loading="lazy" style="width:100%;height:auto;border-radius:10px" onerror="if(!this.dataset.altTried){this.dataset.altTried=1;this.src=this.dataset.altSrc;}" > <p style="margin-top:8px">Great for “TFW” moments. One expressive emoji amplifies the mood without clutter.</p> </article> <p style="margin-top:24px">Tip: For busy images, a black or white caption bar improves readability on phones.</p> </div>
 
 <script>
 const allMemeTemplates = [
