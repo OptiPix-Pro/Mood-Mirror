@@ -292,12 +292,23 @@
     #learn-more details { margin: 8px 0; }
 <!-- Examples gallery heading tweaks --> <style> /* Make the big title a bit smaller too (optional) */ #examplesGallery h1 { font-size: clamp(1.1rem, 1.3rem + 0.6vw, 1.5rem); margin-bottom: 12px; } /* Smaller h2s so they sit nicely above each image */ #examplesGallery h2 { font-size: clamp(1rem, 1.05rem + 0.4vw, 1.2rem); line-height: 1.25; margin: 10px 0 6px; } </style>
  
-  <!-- PWA + favicon (inside head) -->
-  <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32">
-  <meta name="theme-color" content="#007bff">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Mood Mirror">
-  <link rel="manifest" href="/manifest.webmanifest">
+  <!-- PWA, Favicons, and "Add to Home Screen" Icons (Modern SVG Method) -->
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#6a11cb">
+
+<!-- 1. The Modern SVG Icon (for all browsers that support it) -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- 2. The Fallback ICO file (for older browsers) -->
+<link rel="icon" href="/favicon.ico" sizes="any" T>
+
+<!-- 3. The Apple Touch Icon (for iOS home screens) -->
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- Apple Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mood Mirror">
 </head>
 <body>
 <div id="offlineBanner" style="

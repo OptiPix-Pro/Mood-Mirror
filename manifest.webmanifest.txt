@@ -1,0 +1,21 @@
+{
+  "name": "Mood Mirror - Create Viral Memes",
+  "short_name": "Mood Mirror",
+  "description": "Create hilarious, personalized memes in seconds! Upload a photo, add emojis and a caption, and share your mood with the world.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6a11cb",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
