@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/moodmirr/public_html
+    - /bin/cp -r * $DEPLOYPATH
