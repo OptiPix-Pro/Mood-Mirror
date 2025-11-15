@@ -1,8 +1,0 @@
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home2/moodmirr/public_html
-<<<<<<< HEAD:.cpanel.yml.txt
-    - /bin/cp -r * $DEPLOYPATH
-=======
-    - /bin/cp -r * $DEPLOYPATH
->>>>>>> 1a0512c7dc627dce397c88e5e1c7f43948be5823:.cpanel.yml
